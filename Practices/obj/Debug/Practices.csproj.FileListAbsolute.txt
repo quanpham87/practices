@@ -1,0 +1,6 @@
+c:\git\practices\Practices\bin\Debug\Practices.exe.config
+c:\git\practices\Practices\bin\Debug\Practices.exe
+c:\git\practices\Practices\bin\Debug\Practices.pdb
+c:\git\practices\Practices\obj\Debug\Practices.csprojResolveAssemblyReference.cache
+c:\git\practices\Practices\obj\Debug\Practices.exe
+c:\git\practices\Practices\obj\Debug\Practices.pdb
