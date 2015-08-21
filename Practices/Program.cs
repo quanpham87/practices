@@ -16,6 +16,10 @@ namespace Practices {
             Q7(new int[] { 2, 3, 1, 4, 2 }, 2);
         }
 
+        static void WL(object str) {
+            Console.WriteLine(str);
+        }
+
         /// <summary>
         /// 1. how many numbers?
         /// 2. how big is each value?
@@ -29,7 +33,7 @@ namespace Practices {
         /// </summary>
         static void Q1(int[] values) {
             if (values.Length == 0) {
-                Console.WriteLine("n/a");
+                WL("n/a");
                 return;
             }
 
@@ -42,7 +46,7 @@ namespace Practices {
             }
 
             var max = dict.FirstOrDefault(d => d.Value > values.Length / 2);
-            Console.WriteLine(max.Key.ToString());
+            WL(max.Key.ToString());
         }
 
         /// <summary>
@@ -56,9 +60,9 @@ namespace Practices {
         /// <param name="values"></param>
         static void Q2(int[] values) {
             if (values.Length == 1)
-                Console.WriteLine(values[0]);
+                WL(values[0]);
             if (values.Length == 0)
-                Console.WriteLine(0);
+                WL(0);
 
             var max = values[0];
             for (var i = 0; i < values.Length; i++) {
@@ -69,13 +73,53 @@ namespace Practices {
                 }
             }
 
-            Console.WriteLine(max);
+            WL(max);
         }
 
         /// <summary>
         /// binary tree questions, need to create binary tree class first
         /// </summary>
         static void Q3To6() { }
+
+        /// <summary>
+        /// given 2 trees, determine if they're the same
+        /// </summary>
+        static void Q3(TNode t1, TNode t2) {
+            WL("Q3");
+            if (Q3Recurse(t1, t2)) WL("T");
+            else WL("F");
+        }
+        static bool Q3Recurse(TNode t1, TNode t2) {
+            if (t1.Value == t2.Value) return true;
+            if (t1.Value != t2.Value) return false;
+            return Q3Recurse(t1.LeftNode, t2.LeftNode) && Q3Recurse(t1.RightNode, t2.RightNode);
+        }
+
+        /// <summary>
+        /// find # of elements of a tree in a range
+        /// 
+        /// is the range inclusive?
+        /// 
+        /// after thought: given that this is a binary tree, 
+        /// if current node value is OUTSIDE of the range, 
+        /// we only need to check either the left or the right tree because the remaining MUST be 0
+        /// </summary>
+        static void Q4(TNode t1, int min, int max) {
+            WL(Q4Recurse(t1, min, max));
+        }
+        static int Q4Recurse(TNode t1, int min, int max) {
+            return Q4Recurse(t1.LeftNode, min, max) +
+                Q4Recurse(t1.RightNode, min, max) +
+                (t1.Value >= 2 && t1.Value <= max ? 1 : 0);
+        }
+
+        /// <summary>
+        /// question about traversing a tree
+        /// 
+        /// 3 scenarios: on the left most, on the right most, or in the middle
+        /// </summary>
+        static void Q5(TNode t1) {
+        }
 
         /// <summary>
         /// design a class that you can add element and find the mean of the last N elements
@@ -87,12 +131,12 @@ namespace Practices {
         /// </summary>
         /// <param name="values"></param>
         static void Q7(int[] values, int elementCount) {
-            Console.WriteLine("--Q7--");
+            WL("--Q7--");
             var c = new Q7Class();
             foreach (var value in values)
                 c.AddElement(value);
 
-            Console.WriteLine(c.NElementMean[elementCount] / elementCount);
+            WL(c.NElementMean[elementCount] / elementCount);
         }
     }
 
@@ -113,4 +157,21 @@ namespace Practices {
             NElementMean = new Dictionary<int, int>();
         }
     }
+
+    public class TNode {
+        public int Value { get; set; }
+        public TNode LeftNode { get; set; }
+        public TNode RightNode { get; set; }
+        public TNode Parent { get; set; }
+
+        public TNode() { }
+        public TNode(int val) {
+            Value = val;
+        }
+    }
 }
+
+/**
+ * Note:
+ * Q3 & Q4 are practice of recursion and basic tree structure
+ **/
