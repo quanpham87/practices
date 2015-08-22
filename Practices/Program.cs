@@ -14,6 +14,17 @@ namespace Practices {
             Q2(new int[] { 1, -3, 2, 5, -8 });
 
             Q7(new int[] { 2, 3, 1, 4, 2 }, 2);
+
+            Q8(new List<Tuple<int, int>>() { 
+                new Tuple<int,int>(1,3),
+                new Tuple<int,int>(5,10),
+                new Tuple<int,int>(9,31),
+                new Tuple<int,int>(12,30)
+            });
+
+            Q9(new List<int>() { 2, 4, 5, 7, 8 }, 4);
+            Q9(new List<int>() { 2, 4, 5, 7, 8 }, 9);
+            Q10(new List<int>() { 9, 7, 2, 8, 5, 6, 3, 4 });
         }
 
         static void WL(object str) {
@@ -137,6 +148,96 @@ namespace Practices {
                 c.AddElement(value);
 
             WL(c.NElementMean[elementCount] / elementCount);
+        }
+
+        /// <summary>
+        /// running: O(N)
+        /// space: O(1) ? why? bc no space is needed?
+        /// </summary>
+        static void Q8(List<Tuple<int, int>> input) {
+            WL("--Q8--");
+            var output = new List<Tuple<int, int>>();
+            if (input.Count == 0) WL("None");
+            else {
+                var current = input[0];
+
+                for (var i = 1; i < input.Count; i++) {
+                    if (input[i].Item1 < current.Item2)
+                        current = new Tuple<int,int>(current.Item1, Math.Max(current.Item2, input[i].Item2));
+                    else {
+                        output.Add(current);
+                        current = input[i];
+                    }
+                }
+                output.Add(current);
+            }
+
+            foreach (var item in output) {
+                WL("(" + item.Item1 + "," + item.Item2 + ")");
+            }
+        }
+
+        /// <summary>
+        /// implement binary search
+        /// </summary>
+        static void Q9(List<int> input, int target) {
+            WL("--Q9--");
+            if (input.Count == 0) {
+                WL("-1");
+                return;
+            }
+
+            WL("Recursive");
+            WL(Q9Recurse(input, target));
+            WL("Iterative");
+            WL(Q9Iter(input, target));
+        }
+        static int Q9Recurse(List<int> input, int target) {
+            if (input.Count == 0) return -1;
+            if (input.Count == 1)
+                return input[0] == target ? 0 : -1;
+
+            var mid = (int)Math.Floor((double)input.Count / 2);
+            if (input[mid] == target) return mid;
+            else {
+                if (input[mid] < target) return Q9Recurse(input.Where(v => v > input[mid]).ToList(), target);
+                else return Q9Recurse(input.Where(v => v < input[mid]).ToList(), target);
+            }            
+        }
+        static int Q9Iter(List<int> input, int target) {
+            var s = 0;
+            var e = input.Count - 1;
+
+            while (e >= s) {
+                var m = (int)((s + e) / 2);
+
+                if (input[m] == target) return m;
+                else {
+                    if (input[m] < target)
+                        s = m + 1;
+                    else
+                        e = m - 1;
+                }
+            }
+
+            return -1;
+        }
+
+        public static void Q10(List<int> input) {
+            WL("--Q10--");
+            if (input.Count == 1) { WL(input[0]); return; }
+            var output = new List<int>();
+            var down = false;
+
+            for (var i = 1; i < input.Count; i++) {
+                var currentDown = input[i] < input[i - 1];
+                if (!currentDown && down)
+                    output.Add(input[i - 1]);
+                down = currentDown;
+            }
+
+            WL(string.Join(",", output));
+            // TODO: need to finish recursive part, won't do right now because i already saw the solution
         }
     }
 

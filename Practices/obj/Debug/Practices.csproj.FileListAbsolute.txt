@@ -4,3 +4,9 @@ c:\git\practices\Practices\bin\Debug\Practices.pdb
 c:\git\practices\Practices\obj\Debug\Practices.csprojResolveAssemblyReference.cache
 c:\git\practices\Practices\obj\Debug\Practices.exe
 c:\git\practices\Practices\obj\Debug\Practices.pdb
+C:\GitHub\practices\Practices\bin\Debug\Practices.exe.config
+C:\GitHub\practices\Practices\obj\Debug\Practices.exe
+C:\GitHub\practices\Practices\obj\Debug\Practices.pdb
+C:\GitHub\practices\Practices\bin\Debug\Practices.exe
+C:\GitHub\practices\Practices\bin\Debug\Practices.pdb
+C:\GitHub\practices\Practices\obj\Debug\Practices.csprojResolveAssemblyReference.cache
