@@ -1,0 +1,68 @@
+<html>
+<head>
+	<script>
+		console.log('Interview questions review');
+
+		/*
+		 * 2d arrays 
+		 */
+
+		// start times and end times are given IN ORDER
+		// for each triplets, if start and end times overlap then include amount of ram needed
+		// else include the max of current and previous rams
+		// if end = start, can the ram be used for the next app
+		// let's assume it can start
+		// speed O(N), space O(N)
+		var q17 = function(arr) {
+			if (arr.length == 0) return 0;
+			var max = arr[0][2];
+
+			for (var i = 1; i < arr.length; i++) {
+				if (arr[i][0] < arr[i-1][1])
+					max += arr[i][2];
+				else
+					max = Math.max(max, arr[i][2]);
+			}
+
+			return max;
+		};
+		console.log(q17([[2,4,1], [3,6,2], [3,9,3]]));
+		console.log(q17([[2,4,1], [4,6,2], [4,9,3]]));
+
+		// implements power function, e.g. 2^3 = 8
+		// speed O(N), space O(1)
+		// solution given in the book is not the same
+		// i think it still perform at O(N)
+		var q18 = function(e, n) {
+			var recurse = function(e , n) {
+				if (n == 1) return e;
+				else return e * recurse(e, n - 1);
+			}
+
+			return recurse(e, n);
+		}
+		console.log(q18(2, 3)); // 8
+		console.log(q18(5, 3)); // 125
+		console.log(q18(4, 7)); // 16384
+
+		// q19: sort array then swap each pair of values
+
+		// reverse bits of an integer
+		// in other word: reverse an array
+		// speed O(N)
+		// the correct solution is using bitwise operation, need to look up on this one
+		var q20 = function(str) {
+			var n = '';
+			for (var i = 0; i < str.length; i++)
+				n += str[str.length - 1 - i];
+			return n;
+		}
+		console.log(q20('1011'));
+		console.log(q20('1011110001'));
+		console.log(q20('11011100001'));
+
+	</script>
+</head>
+<body>
+</body>
+</html>

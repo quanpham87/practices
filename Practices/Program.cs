@@ -25,6 +25,8 @@ namespace Practices {
             Q9(new List<int>() { 2, 4, 5, 7, 8 }, 4);
             Q9(new List<int>() { 2, 4, 5, 7, 8 }, 9);
             Q10(new List<int>() { 9, 7, 2, 8, 5, 6, 3, 4 });
+            Q11(new List<int>() { 1, 2, 3, 4, 5, 4, 3, 2 });
+            Q11LogN(new List<int>() { 1, 2, 3, 4, 5, 4, 3, 2 });
         }
 
         static void WL(object str) {
@@ -238,6 +240,43 @@ namespace Practices {
 
             WL(string.Join(",", output));
             // TODO: need to finish recursive part, won't do right now because i already saw the solution
+        }
+
+        /// <summary>
+        /// given a list of  int that will go up then go down, find the max value
+        /// 
+        /// so it absolutely cannot have dupplicate?
+        /// </summary>
+        public static void Q11(List<int> input) {
+            WL("--Q11--");
+
+            if (input.Count == 0) { WL("0"); return; }
+            if (input.Count == 1) { WL(input[0]); return; }
+            // easy way: O(N)
+            for (var i = 1; i < input.Count; i++) {
+                if (input[i] < input[i - 1]) { WL(input[i - 1]); return; }
+            }
+            WL(input[input.Count - 1]);
+        }
+        public static void Q11LogN(List<int> input) {
+            WL("--Q11LogN--");
+            // better way: O(logN)
+            int s = 0, e = input.Count - 1;
+            while (s <= e) {
+                int m = (s + e) / 2;
+                if ((m - 1) < 0 || (m + 1) >= input.Count) {
+                    WL(input[m]);
+                    return;
+                }
+                if (input[m] > input[m - 1] && input[m] > input[m + 1]) {
+                    WL(input[m]);
+                    return;
+                }
+                else if (input[m] < input[m - 1])
+                    e = m - 1;
+                else
+                    s = m + 1;
+            }
         }
     }
 
