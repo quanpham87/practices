@@ -278,6 +278,7 @@ namespace Practices {
                     s = m + 1;
             }
         }
+
     }
 
     public class Q7Class : List<int> {
