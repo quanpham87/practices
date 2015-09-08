@@ -1,3 +1,30 @@
+def validSolutionV3(board):
+    # new solution that utilize python list's comprehensive
+    check = range(1, 10)
+    # validate blocks
+    for i in range(0, 9, 3):
+        for j in range(0, 9, 3):
+            block = board[i][j:j+3] + board[i+1][j:j+3] + board[i+2][j:j+3]
+            if sorted(block) != check:
+                return False
+    # validate rows and columns
+    for i in range(0, 9):        
+        if sorted(board[i][0:9]) != check or sorted([row[i] for row in board]) != check:
+            return False
+    return True
+    
+def validSolutionV2(board):
+    # most minified
+    check = range(1, 10)
+    for i in range(0, 9, 3):
+        for j in range(0, 9, 3):
+            if sorted(board[i][j:j+3] + board[i+1][j:j+3] + board[i+2][j:j+3]) != check or \
+                sorted(board[i][0:9]) != check or sorted([row[i] for row in board]) != check or \
+                sorted(board[i+1][0:9]) != check or sorted([row[i+1] for row in board]) != check or \
+                sorted(board[i+2][0:9]) != check or sorted([row[i+2] for row in board]) != check:
+                return False
+    return True
+    
 def validSolution(board):
     validCheck = [0, 0, 0, 0, 0, 0, 0, 0, 0]
     # pick out the 3x3 matrix to test on
